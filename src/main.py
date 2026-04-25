@@ -145,7 +145,7 @@ SeatGeek.save_events_to_excel(
     output_file=OUTPUT_FILE
 )
 """
-
+'''
 
 # creating employee databse 
 
@@ -176,7 +176,7 @@ SCHEDULES = [
     "Flexible / On-call"
 ]
 
-PEOPLE_PER_STORE = 7
+PEOPLE_PER_STORE = 9
 
 EmployeeGenerator.generate_employee_sheet(
     input_store_file=INPUT_FILE,
@@ -203,7 +203,7 @@ df.to_excel(OUTPUT_FILE, index=False)
 
 print(f"Saved: {OUTPUT_FILE}")
 print(f"Total Stores: {len(df)}")
-'''
+
 
 
 INPUT_FILE = "output data/ticketmaster_seattle_filtered_events.xlsx"
