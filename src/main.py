@@ -100,13 +100,13 @@ print("Ticketmaster - Finish extracting events near seattle location ")
 Reference: https://seatgeek.com/build?msockid=1f897f4131c165c437936cce30c964b5 
 to get the seatgeek API Key 
 1) go to the following website to create an account or login in: https://developer.seatgeek.com/login
-2) Account will need to be approved to get the private token 
+2) Account will need to be approved to get the private token (waiting atm)
 """
 """ 
 URL = "https://api.seatgeek.com/2/events"
 
-CLIENT_ID = "your_client_id_here"
-CLIENT_SECRET = None   # or ""
+CLIENT_ID = None
+CLIENT_SECRET = None   # 
 
 PER_PAGE = 100
 
