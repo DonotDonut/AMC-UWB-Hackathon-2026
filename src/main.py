@@ -47,8 +47,8 @@ GIS.write_kml(
 )
 print("GIS, KML - Finish plotting the resturant location ")
 
-# PARAMETERS
-TICKETMASTER_API_KEY = "iZrcUQF26wUbLhlPY6S2oGxcNzbbyAwv"
+# Ticketmaster Parameters 
+TICKETMASTER_API_KEY = None # edit! 
 SIZE = 200
 MIN_EVENT_SIZE = 5000
 MAX_EVENT_SIZE = 50000
