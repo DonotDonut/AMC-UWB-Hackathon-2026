@@ -16,6 +16,7 @@ from database_access.geographic_information_system import GIS
 from database_access.ticketmaster import TicketMaster
 from database_access.seatgeek import SeatGeek
 from database_creation.employee import EmployeeGenerator
+from database_modificaiton.resturant_capacity import ResturantCapacityEstimator
 
 
 # 
@@ -144,7 +145,7 @@ SeatGeek.save_events_to_excel(
     output_file=OUTPUT_FILE
 )
 """
-'''
+
 
 # creating employee databse 
 
@@ -185,4 +186,20 @@ EmployeeGenerator.generate_employee_sheet(
     schedules=SCHEDULES,
     people_per_store=PEOPLE_PER_STORE
 )
+'''
+# 
+INPUT_FILE = "output data/5mile_radius_store_list.xlsx"
+OUTPUT_FILE = "output data/5mile_radius_store_list_with_capacity.xlsx"
 
+df = pd.read_excel(INPUT_FILE)
+
+# Apply capacity estimation
+df["estimated_store_capacity"] = df["name"].apply(
+    ResturantCapacityEstimator.estimate_capacity
+)
+
+# Save
+df.to_excel(OUTPUT_FILE, index=False)
+
+print(f"Saved: {OUTPUT_FILE}")
+print(f"Total Stores: {len(df)}")
