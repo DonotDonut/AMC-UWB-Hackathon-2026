@@ -19,6 +19,7 @@ from database_creation.employee import EmployeeGenerator
 from database_modificaiton.resturant_capacity import ResturantCapacityEstimator
 from database_modificaiton.event_coordinates import EventCoordinateMapper
 from machine_learning.eclat import EclatScheduleSuggestion
+from machine_learning.test import EclatTest
 
 # 
 out_path = "output data/5mile_radius_store_list.xlsx"
@@ -26,7 +27,7 @@ kml_out_path = "output data/5mile_radius_store_list.kml"
 INPUT_FILE = "output data/5mile_radius_store_list.xlsx"
 OUTPUT_FILE = "output data/random_employee_staffing.xlsx"
 
-''' 
+
 overpass_url = "https://overpass-api.de/api/interpreter"
 
 location_name = "3rd Avenue, Seattle"
@@ -227,18 +228,42 @@ EventCoordinateMapper.add_coordinates(
     output_file=OUTPUT_FILE,
     venue_coords=VENUE_COORDS
 )
-''' 
+
 
 EMPLOYEE_FILE = "output data/random_employee_staffing.xlsx"
 STORE_FILE = "output data/5mile_radius_store_list_with_capacity.xlsx"
 EVENT_FILE = "output data/events_with_coordinates.xlsx"
 OUTPUT_FILE = "output data/schedule_suggestions_eclat.xlsx"
 
-EclatScheduleSuggestion.process(
+suggestions_df, frequent_df = EclatScheduleSuggestion.process(
     employee_file=EMPLOYEE_FILE,
     store_file=STORE_FILE,
     event_file=EVENT_FILE,
     output_file=OUTPUT_FILE,
     radius_miles=1.0,
     min_support=3
+)
+
+employee_df = pd.read_excel(EMPLOYEE_FILE)
+store_df = pd.read_excel(STORE_FILE)
+event_df = pd.read_excel(EVENT_FILE)
+
+transactions = EclatScheduleSuggestion.build_transactions(
+    employee_df=employee_df,
+    store_df=store_df,
+    event_df=event_df,
+    radius_miles=1.0
+)
+
+EclatTest.validate_eclat_results(
+    frequent_df=frequent_df,
+    suggestions_df=suggestions_df,
+    output_prefix="output data/eclat_validation"
+)
+
+EclatTest.validate_train_test_patterns(
+    transactions=transactions,
+    min_support=3,
+    test_size=0.30,
+    output_prefix="output data/eclat_train_test_validation"
 )
