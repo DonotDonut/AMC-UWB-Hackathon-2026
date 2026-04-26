@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="brand">Manager Dashboard</div>
+
+    <div class="nav-links">
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'add_person' %}">Add New Person</a>
+        <a href="{% url 'schedules' %}">View Schedules</a>
+        <a href="{% url 'edit_shift' %}">Edit Shifts</a>
+    </div>
+
+    <div class="manager">👤 Manager⌄</div>
+</nav>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

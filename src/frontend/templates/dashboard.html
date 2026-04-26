@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <h1>Manager Dashboard</h1>
+    <p>Welcome! Here's an overview of your management tools.</p>
+
+    <div class="card-row">
+        <a href="{% url 'add_person' %}" class="dashboard-card">
+            <div class="icon">👤➕</div>
+            <h2>Add New Person</h2>
+            <p>Add a new employee<br>to the system</p>
+        </a>
+
+        <a href="{% url 'schedules' %}" class="dashboard-card">
+            <div class="icon">📅</div>
+            <h2>View Schedules</h2>
+            <p>View all employee<br>schedules</p>
+        </a>
+
+        <a href="{% url 'edit_shift' %}" class="dashboard-card">
+            <div class="icon">✏️</div>
+            <h2>Edit Shifts</h2>
+            <p>Edit or update<br>existing shifts</p>
+        </a>
+    </div>
+</section>
+{% endblock %}

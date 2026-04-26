@@ -1,0 +1,15 @@
+
+# to run website you will need to need to 
+# 1) install djangi by typing 'pip install django' in the vscode termainl 
+# 2) type the following in the terminal: python manage.py runserver
+# 3) in chrome type: http://127.0.0.1:8000/  to look at the website 
+
+
+import os
+import sys
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mywebsite.settings')
+
+from django.core.management import execute_from_command_line
+
+execute_from_command_line(sys.argv)

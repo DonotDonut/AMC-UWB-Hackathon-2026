@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-section">
+    <h1>Edit Shifts</h1>
+    <p>Update the shift details below.</p>
+
+    <form class="form-card wide-form" method="POST">
+        {% csrf_token %}
+
+        <label>Employee Name</label>
+        <select name="employee_name">
+            <option>Select employee</option>
+            {% for employee in employees %}
+            <option>{{ employee }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Date</label>
+        <input type="date" name="shift_date">
+
+        <div class="time-row">
+            <div>
+                <label>Start Time</label>
+                <input type="time" name="start_time">
+            </div>
+
+            <div>
+                <label>End Time</label>
+                <input type="time" name="end_time">
+            </div>
+        </div>
+
+        <button type="submit">Update Shift</button>
+    </form>
+</section>
+{% endblock %}

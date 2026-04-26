@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-section">
+    <h1>Viewing Schedules</h1>
+    <p>List of all employee schedules.</p>
+
+    <table class="schedule-table">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Date</th>
+                <th>Day</th>
+                <th>Shift</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in schedules %}
+            <tr>
+                <td>{{ item.employee }}</td>
+                <td>{{ item.date }}</td>
+                <td>{{ item.day }}</td>
+                <td>{{ item.shift }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
