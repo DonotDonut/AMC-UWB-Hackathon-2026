@@ -17,6 +17,8 @@ def add_person(request):
         full_name = request.POST.get("full_name")
         email = request.POST.get("email")
         role = request.POST.get("role")
+        # Define the constant ID
+        osm_id = 11476372224
 
         if EXCEL_FILE.exists():
             workbook = load_workbook(EXCEL_FILE)
@@ -25,9 +27,11 @@ def add_person(request):
             workbook = Workbook()
             sheet = workbook.active
             sheet.title = "Staff"
-            sheet.append(["Full Name", "Email", "Role"])
+            # The header has 4 columns
+            sheet.append(["Full Name", "Email", "Role", "osm_id"])
 
-        sheet.append([full_name, email, role])
+        # Add all 4 pieces of data to match the header
+        sheet.append([full_name, email, role, osm_id])
         workbook.save(EXCEL_FILE)
 
         return redirect("add_person")
