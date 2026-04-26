@@ -32,14 +32,14 @@ import random
 import matplotlib.pyplot as plt
 
 # Script / Python File connection
-from database_access.turbo_overpass import TurboOverpass
-from database_access.geographic_information_system import GIS
-from database_access.ticketmaster import TicketMaster
-from database_creation.employee import EmployeeGenerator
-from database_modificaiton.resturant_capacity import ResturantCapacityEstimator
-from database_modificaiton.event_coordinates import EventCoordinateMapper
-from machine_learning.eclat import EclatScheduleSuggestion
-from machine_learning.test import EclatTest
+from backend.database_access.turbo_overpass import TurboOverpass
+from backend.database_access.geographic_information_system import GIS
+from backend.database_access.ticketmaster import TicketMaster
+from backend.database_creation.employee import EmployeeGenerator
+from backend.database_modificaiton.resturant_capacity import ResturantCapacityEstimator
+from backend.database_modificaiton.event_coordinates import EventCoordinateMapper
+from backend.machine_learning.eclat import EclatScheduleSuggestion
+from backend.machine_learning.test import EclatTest
 
 
 # Global File Paths

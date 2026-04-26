@@ -3,7 +3,7 @@ import random
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from machine_learning.eclat import EclatScheduleSuggestion
+from backend.machine_learning.eclat import EclatScheduleSuggestion
 
 
 class EclatTest:

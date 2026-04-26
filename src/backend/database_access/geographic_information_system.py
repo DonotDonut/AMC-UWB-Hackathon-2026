@@ -4,7 +4,7 @@ import os
 from xml.sax.saxutils import escape as xml_escape
 
 # Script / Python File connection
-from database_access.turbo_overpass import TurboOverpass
+from backend.database_access.turbo_overpass import TurboOverpass
 
 
 class GIS:
