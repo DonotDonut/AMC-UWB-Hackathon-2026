@@ -7,40 +7,73 @@ def add_person(request):
     return render(request, "add_person.html")
 
 def schedules(request):
-    schedule_data = [
+    staff_schedule = [
+        {"employee": "John Smith", "days": "Monday, Tuesday, Wednesday, Friday", "time": "9:00 AM - 5:00 PM"},
+        {"employee": "Jane Doe", "days": "Tuesday, Wednesday, Thursday", "time": "12:00 PM - 8:00 PM"},
+        {"employee": "Mike Johnson", "days": "Monday, Wednesday, Friday", "time": "9:00 AM - 5:00 PM"},
+        {"employee": "Emily Davis", "days": "Thursday, Friday, Saturday", "time": "2:00 PM - 10:00 PM"},
+        {"employee": "Chris Lee", "days": "Monday, Tuesday, Friday", "time": "9:00 AM - 5:00 PM"},
+    ]
+
+    week_schedule = [
         {
-            "employee": "John Smith",
-            "date": "May 20, 2024",
             "day": "Monday",
-            "shift": "9:00 AM - 5:00 PM",
+            "shifts": [
+                {"employee": "John Smith", "time": "9:00 AM - 5:00 PM", "color": "john"},
+                {"employee": "Mike Johnson", "time": "9:00 AM - 5:00 PM", "color": "mike"},
+            ],
         },
         {
-            "employee": "Jane Doe",
-            "date": "May 21, 2024",
             "day": "Tuesday",
-            "shift": "12:00 PM - 8:00 PM",
+            "shifts": [
+                {"employee": "John Smith", "time": "9:00 AM - 5:00 PM", "color": "john"},
+                {"employee": "Jane Doe", "time": "12:00 PM - 8:00 PM", "color": "jane"},
+                {"employee": "Chris Lee", "time": "9:00 AM - 5:00 PM", "color": "chris"},
+            ],
         },
         {
-            "employee": "Mike Johnson",
-            "date": "May 22, 2024",
             "day": "Wednesday",
-            "shift": "9:00 AM - 5:00 PM",
+            "shifts": [
+                {"employee": "John Smith", "time": "9:00 AM - 5:00 PM", "color": "john"},
+                {"employee": "Mike Johnson", "time": "9:00 AM - 5:00 PM", "color": "mike"},
+                {"employee": "Jane Doe", "time": "12:00 PM - 8:00 PM", "color": "jane"},
+            ],
         },
         {
-            "employee": "Emily Davis",
-            "date": "May 23, 2024",
             "day": "Thursday",
-            "shift": "2:00 PM - 10:00 PM",
+            "shifts": [
+                {"employee": "Jane Doe", "time": "12:00 PM - 8:00 PM", "color": "jane"},
+                {"employee": "Emily Davis", "time": "2:00 PM - 10:00 PM", "color": "emily"},
+            ],
         },
         {
-            "employee": "Chris Lee",
-            "date": "May 24, 2024",
             "day": "Friday",
-            "shift": "9:00 AM - 5:00 PM",
+            "shifts": [
+                {"employee": "John Smith", "time": "9:00 AM - 5:00 PM", "color": "john"},
+                {"employee": "Chris Lee", "time": "9:00 AM - 5:00 PM", "color": "chris"},
+                {"employee": "Emily Davis", "time": "2:00 PM - 10:00 PM", "color": "emily"},
+            ],
+        },
+        {
+            "day": "Saturday",
+            "shifts": [
+                {"employee": "Emily Davis", "time": "2:00 PM - 10:00 PM", "color": "emily"},
+            ],
+        },
+        {
+            "day": "Sunday",
+            "shifts": [],
         },
     ]
 
-    return render(request, "schedules.html", {"schedules": schedule_data})
+    return render(
+        request,
+        "schedules.html",
+        {
+            "staff_schedule": staff_schedule,
+            "week_schedule": week_schedule,
+        },
+    )
 
 def edit_shift(request):
     employees = ["John Smith", "Jane Doe", "Mike Johnson", "Emily Davis", "Chris Lee"]

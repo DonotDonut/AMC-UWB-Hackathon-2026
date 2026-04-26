@@ -1,29 +1,71 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section class="page-section">
-    <h1>Viewing Schedules</h1>
-    <p>List of all employee schedules.</p>
+<section class="schedule-page">
 
-    <table class="schedule-table">
-        <thead>
-            <tr>
-                <th>Employee</th>
-                <th>Date</th>
-                <th>Day</th>
-                <th>Shift</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in schedules %}
-            <tr>
-                <td>{{ item.employee }}</td>
-                <td>{{ item.date }}</td>
-                <td>{{ item.day }}</td>
-                <td>{{ item.shift }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="schedule-layout">
+
+        <!-- LEFT SIDE -->
+        <div class="staff-section">
+            <h1>Staff Schedule</h1>
+            <p>Drag an employee into a day to schedule them.</p>
+
+            <table class="staff-table">
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Days</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in staff_schedule %}
+                    <tr>
+                        <td
+                            class="draggable-employee"
+                            draggable="true"
+                            ondragstart="drag(event)"
+                            data-employee="{{ person.employee }}"
+                            data-time="{{ person.time }}"
+                            data-days="{{ person.days }}"
+                        >
+                            {{ person.employee }}
+                        </td>
+                        <td>{{ person.days }}</td>
+                        <td>{{ person.time }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="week-section">
+            <h1>Week Schedule</h1>
+            <p>Employees working each day, organized by time.</p>
+
+            <div class="week-grid">
+                {% for day in week_schedule %}
+                <div
+                    class="day-card"
+                    ondrop="drop(event)"
+                    ondragover="allowDrop(event)"
+                    data-day="{{ day.day }}"
+                >
+                    <h2>{{ day.day }}</h2>
+
+                    {% for shift in day.shifts %}
+                    <div class="shift-card {{ shift.color }}">
+                        <strong>{{ shift.time }}</strong>
+                        <span>{{ shift.employee }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
 </section>
 {% endblock %}

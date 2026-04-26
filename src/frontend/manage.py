@@ -3,6 +3,7 @@
 # 1) install djangi by typing 'pip install django' in the vscode termainl 
 # 2) type the following in the terminal: python manage.py runserver
 # 3) in chrome type: http://127.0.0.1:8000/  to look at the website 
+# 4) when the terminal is running you can type c + cntrl to break it out 
 
 
 import os
