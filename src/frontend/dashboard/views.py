@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from openpyxl import Workbook, load_workbook
 from pathlib import Path
+import pandas as pd
 
 
 BASE_DIR = Path(__file__).resolve().parents[3]
@@ -32,64 +33,58 @@ def add_person(request):
     return render(request, "add_person.html")
 
 def schedules(request):
-    staff_schedule = [
-        {"employee": "John Smith", "days": "Monday, Tuesday, Wednesday, Friday", "time": "9:00 AM - 5:00 PM"},
-        {"employee": "Jane Doe", "days": "Tuesday, Wednesday, Thursday", "time": "12:00 PM - 8:00 PM"},
-        {"employee": "Mike Johnson", "days": "Monday, Wednesday, Friday", "time": "9:00 AM - 5:00 PM"},
-        {"employee": "Emily Davis", "days": "Thursday, Friday, Saturday", "time": "2:00 PM - 10:00 PM"},
-        {"employee": "Chris Lee", "days": "Monday, Tuesday, Friday", "time": "9:00 AM - 5:00 PM"},
+    df = pd.read_excel(EXCEL_FILE, sheet_name="Shifts")
+
+    # Clean column names
+    df.columns = df.columns.str.strip()
+
+    staff_schedule = []
+    week_schedule = []
+
+    # Build staff_schedule
+    for employee, group in df.groupby("Employee"):
+        days = ", ".join(group["Day"].astype(str).tolist())
+
+        times = group.apply(
+            lambda row: f"{row['Start Time']} - {row['End Time']}",
+            axis=1
+        ).unique()
+
+        staff_schedule.append({
+            "employee": employee,
+            "days": days,
+            "time": ", ".join(times),
+        })
+
+    # Build week_schedule
+    days_order = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
     ]
 
-    week_schedule = [
-        {
-            "day": "Monday",
-            "shifts": [
-                {"employee": "John Smith", "time": "9:00 AM - 5:00 PM", "color": "john"},
-                {"employee": "Mike Johnson", "time": "9:00 AM - 5:00 PM", "color": "mike"},
-            ],
-        },
-        {
-            "day": "Tuesday",
-            "shifts": [
-                {"employee": "John Smith", "time": "9:00 AM - 5:00 PM", "color": "john"},
-                {"employee": "Jane Doe", "time": "12:00 PM - 8:00 PM", "color": "jane"},
-                {"employee": "Chris Lee", "time": "9:00 AM - 5:00 PM", "color": "chris"},
-            ],
-        },
-        {
-            "day": "Wednesday",
-            "shifts": [
-                {"employee": "John Smith", "time": "9:00 AM - 5:00 PM", "color": "john"},
-                {"employee": "Mike Johnson", "time": "9:00 AM - 5:00 PM", "color": "mike"},
-                {"employee": "Jane Doe", "time": "12:00 PM - 8:00 PM", "color": "jane"},
-            ],
-        },
-        {
-            "day": "Thursday",
-            "shifts": [
-                {"employee": "Jane Doe", "time": "12:00 PM - 8:00 PM", "color": "jane"},
-                {"employee": "Emily Davis", "time": "2:00 PM - 10:00 PM", "color": "emily"},
-            ],
-        },
-        {
-            "day": "Friday",
-            "shifts": [
-                {"employee": "John Smith", "time": "9:00 AM - 5:00 PM", "color": "john"},
-                {"employee": "Chris Lee", "time": "9:00 AM - 5:00 PM", "color": "chris"},
-                {"employee": "Emily Davis", "time": "2:00 PM - 10:00 PM", "color": "emily"},
-            ],
-        },
-        {
-            "day": "Saturday",
-            "shifts": [
-                {"employee": "Emily Davis", "time": "2:00 PM - 10:00 PM", "color": "emily"},
-            ],
-        },
-        {
-            "day": "Sunday",
-            "shifts": [],
-        },
-    ]
+    for day in days_order:
+        day_rows = df[df["Day"].astype(str).str.lower() == day.lower()]
+
+        shifts = []
+
+        for _, row in day_rows.iterrows():
+            employee = str(row["Employee"])
+
+            shifts.append({
+                "employee": employee,
+                "time": f"{row['Start Time']} - {row['End Time']}",
+                "color": employee.split()[0].lower(),
+            })
+
+        week_schedule.append({
+            "day": day,
+            "shifts": shifts,
+        })
 
     return render(
         request,
