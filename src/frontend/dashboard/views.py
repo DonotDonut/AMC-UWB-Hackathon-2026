@@ -3,7 +3,34 @@ from django.shortcuts import render
 def dashboard(request):
     return render(request, "dashboard.html")
 
+from django.shortcuts import render, redirect
+from openpyxl import Workbook, load_workbook
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+EXCEL_FILE = BASE_DIR / "staff_data.xlsx"
+
+
 def add_person(request):
+    if request.method == "POST":
+        full_name = request.POST.get("full_name")
+        email = request.POST.get("email")
+        role = request.POST.get("role")
+
+        if EXCEL_FILE.exists():
+            workbook = load_workbook(EXCEL_FILE)
+            sheet = workbook.active
+        else:
+            workbook = Workbook()
+            sheet = workbook.active
+            sheet.title = "Staff"
+            sheet.append(["Full Name", "Email", "Role"])
+
+        sheet.append([full_name, email, role])
+        workbook.save(EXCEL_FILE)
+
+        return redirect("add_person")
+
     return render(request, "add_person.html")
 
 def schedules(request):

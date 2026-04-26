@@ -41,8 +41,16 @@
 
         <!-- RIGHT SIDE -->
         <div class="week-section">
-            <h1>Week Schedule</h1>
-            <p>Employees working each day, organized by time.</p>
+            <div class="week-header">
+                <div>
+                    <h1>Week Schedule</h1>
+                    <p>Employees working each day, organized by time.</p>
+                </div>
+
+                <button class="suggest-btn" onclick="createSuggestedSchedule()">
+                    Create Suggested Schedule
+                </button>
+            </div>
 
             <div class="week-grid">
                 {% for day in week_schedule %}

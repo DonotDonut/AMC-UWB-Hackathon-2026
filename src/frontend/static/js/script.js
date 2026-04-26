@@ -51,3 +51,12 @@ function drop(event) {
 
     dayCard.appendChild(newShift);
 }
+
+function createSuggestedSchedule() {
+    alert("Suggested schedule feature coming next 🚀");
+
+    // Later this will:
+    // 1. Read staff availability
+    // 2. Auto-assign employees to days
+    // 3. Populate the schedule
+}
