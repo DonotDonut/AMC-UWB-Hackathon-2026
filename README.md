@@ -12,7 +12,7 @@ Built at **UWB HACKS 2026** · University of Washington Bothell · April 2026
 Contributors: Tim Caole, Lily Aguirre, Campbell Hamilton, & Sarah Rosen
 
 ## The Problem
-Businesses near stadiums, arenas, and event venues face unpredictable spikes in foot traffic. Without advance notice, managers understaff, employees burn out, customers wait impatiently, and the business loses revenue and reputation it can't easily recover.
+In the downtown Seattle scene, businesses near stadiums, arenas, and event venues face unpredictable spikes in foot traffic. Without advance notice, managers understaff, employees burn out, customers wait impatiently, and the business loses revenue and reputation it can't easily recover.
 
 There are currently **no prediction tools** purpose-built for the businesses sitting in the radius of these events.
 
