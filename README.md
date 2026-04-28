@@ -8,6 +8,7 @@ final result is in the frontend prototype branch.
 CrowdCue is an AI-powered staffing prediction tool that helps businesses near event venues anticipate demand surges and schedule staff proactively, before the crowd arrives, not after.
 
 Built at **UWB HACKS 2026** · University of Washington Bothell · April 2026
+
 Contributors: Tim Caole, Lily Aguirre, Campbell Hamilton, & Sarah Rosen
 
 ## The Problem
